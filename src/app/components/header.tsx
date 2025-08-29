@@ -9,7 +9,6 @@ export function Header() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
         <Link href="/" className="text-base font-semibold tracking-tight text-foreground">
           <span className="px-2 py-1 rounded-md badge-muted text-foreground">
-            {/* Name/Logo */}
             NJT
           </span>
         </Link>
