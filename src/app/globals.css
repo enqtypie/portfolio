@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light theme (two-tone: light + peach) */
+  --background: #fff7f2; /* light peach wash */
+  --foreground: #1a1a1a; /* near-black text */
+  --card: #ffffff; /* surface */
+  --muted: #ffe9dd; /* soft peach */
+  --primary: #ffb089; /* peach accent */
+  --primary-foreground: #241b17; /* readable on peach */
+  --ring: #ffb089;
 }
 
 @theme inline {
@@ -14,13 +20,199 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Dark theme */
+    --background: #0f0f10;
+    --foreground: #f1f1f1;
+    --card: #151516;
+    --muted: #1f1a18; /* muted peach tint in dark */
+    --primary: #ffb089;
+    --primary-foreground: #1a1411;
+    --ring: #ffb089;
   }
+}
+
+/* Explicit dark theme when toggled */
+:root[data-theme="dark"] {
+  --background: #0f0f10;
+  --foreground: #f1f1f1;
+  --card: #151516;
+  --muted: #1f1a18;
+  --primary: #eb4034;
+  --primary-foreground: #1a1411;
+  --ring: #eb4034;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Primitives built on CSS variables for Tailwind v4 usage */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --ring-color: var(--ring);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Reusable utilities */
+.btn {
+  @apply inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium transition-colors;
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+.btn-primary:hover { 
+  filter: brightness(0.95); 
+}
+
+.card {
+  background-color: var(--card);
+  @apply border rounded-2xl border-foreground/10;
+}
+
+/* Utilities to avoid inline styles */
+.bg-muted { background-color: var(--muted); }
+.border-ring { border: 1px solid var(--ring); }
+.badge-muted { background-color: var(--muted); }
+.hero-gradient { background: linear-gradient(180deg, var(--muted), transparent 60%); }
+
+/* Responsive text utilities */
+.text-foreground { color: var(--foreground); }
+.text-foreground\/70 { color: color-mix(in srgb, var(--foreground) 70%, transparent); }
+.text-foreground\/80 { color: color-mix(in srgb, var(--foreground) 80%, transparent); }
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInDelay {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDelay2 {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-fade-in-delay {
+  animation: fadeInDelay 1.2s ease-out forwards;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeInDelay2 1.5s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Intersection Observer animations for scroll-triggered animations */
+@keyframes fadeInOnScroll {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.scroll-animate.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--primary) 80%, transparent);
 }
