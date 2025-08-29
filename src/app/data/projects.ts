@@ -18,7 +18,7 @@ export const projects: Project[] = [
       "Developed as a thesis project, NagaSabot is a machine learning–powered web application that recognizes lip movements and converts them into text, specifically for the Bicol-Naga dialect. Led frontend development using Angular, HTML, CSS, and TypeScript to build an intuitive and responsive interface. Integrated machine learning models for real-time lip-reading functionality, contributing to regional accessibility and language-focused AI applications.",
     technologies: ["Angular", "HTML", "CSS", "TypeScript", "Machine Learning", "AI"],
     link: "https://nagasabotv0-quvx.onrender.com",
-    imageSrc: "/NagaSabot.png",
+    imageSrc: "/Nagasabot.png",
     imageAlt: "NagaSabot project preview",
   },
   {
